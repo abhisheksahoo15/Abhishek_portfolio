@@ -52,7 +52,7 @@
       <div class="hidden md:flex space-x-8 text-base font-medium text-black">
         <a href="#hero" class="nav-link hover:text-yellow-200">Home</a>
         <a href="#skills" class="nav-link hover:text-yellow-200">Skills</a>
-        <a href="#certifications" class="nav-link hover:text-yellow-200">Certifications</a>
+        <a href="/certificate" class="nav-link hover:text-yellow-200">Certifications</a>
         <a href="#current" class="nav-link hover:text-yellow-200">Working On</a>
         <a href="#contact" class="nav-link hover:text-yellow-200">Contact</a>
       </div>
@@ -76,41 +76,52 @@
     </div>
   </nav>
 
-
   <!-- Hero Section -->
   <section id="hero" class="pt-28 flex flex-col md:flex-row items-center justify-between px-8 py-16 max-w-6xl mx-auto"
-    data-aos="fade-up">
-    <div class="md:w-1/2">
-      <h2 class="text-4xl font-bold mb-4 leading-tight">
-        Hi, I'm <span class="text-[#0077b6]">Abhishek Sahoo</span>
-      </h2>
-      <p class="text-lg mb-6 text-gray-700">
-        A passionate Data Scientist, ML Developer, and Full Stack Engineer crafting code with creativity and purpose.
-      </p>
-      <a href="#contact" class="bg-[#00b4d8] text-white px-6 py-3 rounded-full hover:bg-[#0077b6] transition">Let's
-        Connect</a>
+  data-aos="fade-up">
+  <div class="md:w-1/2">
+    <h2 class="text-4xl font-bold mb-4 leading-tight">
+      Hi, I'm <span class="text-[#0077b6]">Abhishek Sahoo</span>
+    </h2>
+    <p class="text-lg mb-6 text-gray-700">
+      A passionate Data Scientist, ML Developer, and Full Stack Engineer crafting code with creativity and purpose.
+    </p>
+
+    <div class="flex flex-wrap gap-4">
+      <a href="#contact"
+        class="bg-[#00b4d8] text-white px-6 py-3 rounded-full hover:bg-[#0077b6] transition">Let's Connect</a>
+
       <a href="/static/docu/Data science CV.pdf" download
         class="bg-[#00b4d8] text-white px-6 py-3 rounded-full hover:bg-[#0077b6] transition">
         Download CV
       </a>
 
-
-
+      <!-- 🎯 New Button for GetSetAI -->
+      <a href="https://getsetai.in" target="_blank"
+        class="bg-gradient-to-r from-[#0077b6] to-[#00b4d8] text-white px-6 py-3 rounded-full hover:opacity-90 transition">
+        🌐 Join My ML Community – GetSetAI
+      </a>
     </div>
-    <div class="md:w-1/2 mt-10 md:mt-0 text-center">
-      <img src="/static/images/dp/abhishek.jpg" class="rounded-full w-64 mx-auto shadow-xl border-4 border-[#00b4d8]" />
+  </div>
 
-    </div>
-  </section>
+  <div class="md:w-1/2 mt-10 md:mt-0 text-center">
+    <img src="/static/images/dp/abhishek.jpg"
+      class="rounded-full w-64 mx-auto shadow-xl border-4 border-[#00b4d8]" />
+  </div>
+</section>
 
-  <!-- Search Bar Section -->
+
+  <!-- 🔍 Search Bar Section with Live Filter -->
   <section class="px-6 py-10 max-w-4xl mx-auto" data-aos="fade-up">
     <div class="bg-white shadow-md rounded-xl px-6 py-6">
       <h3 class="text-2xl font-bold text-[#0077b6] mb-4">🔍 Explore Data Science</h3>
-      <input type="text" placeholder="Search ML tools, algorithms, projects..."
+      <input id="search-input" type="text" placeholder="Search ML tools, algorithms, projects..."
         class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#00b4d8] transition" />
       <p class="text-sm text-gray-500 mt-3">Start typing to explore my machine learning projects, data visualizations,
         or tools I've used.</p>
+
+      <!-- 🔍 Result Container -->
+      <div id="model-list" class="mt-6 space-y-4"></div>
     </div>
   </section>
 
@@ -180,6 +191,59 @@
   <script>
     AOS.init();
   </script>
+
+  <!-- 🔍 JavaScript for Live Search -->
+<script>
+  const models = [
+    {
+      title: "Machine Learning - Student Marks Prediction",
+      keywords: ["machine", "loan", "prediction","student"],
+      link: "https://student-marks-prediction-ml-model-czutaxvjvugg3kaedvyuot.streamlit.app/"
+    },
+    // {
+    //   title: "Data Visualization - Sales Dashboard",
+    //   keywords: ["visualization", "sales", "dashboard"],
+    //   link: "dashboard.html"
+    // },
+    // {
+    //   title: "Deep Learning - Image Classifier",
+    //   keywords: ["deep", "image", "classifier"],
+    //   link: "image-classifier.html"
+    // },
+    // {
+    //   title: "Clustering - Customer Segmentation",
+    //   keywords: ["clustering", "unsupervised", "segmentation"],
+    //   link: "segmentation.html"
+    // }
+  ];
+
+  const searchInput = document.getElementById("search-input");
+  const modelList = document.getElementById("model-list");
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase();
+    modelList.innerHTML = "";
+
+    const filteredModels = models.filter(model =>
+      model.keywords.some(keyword => keyword.includes(query))
+    );
+
+    if (filteredModels.length === 0 && query) {
+      modelList.innerHTML = `<p class="text-red-500">No matching models found.</p>`;
+      return;
+    }
+
+    filteredModels.forEach(model => {
+      const link = document.createElement("a");
+      link.href = model.link;
+      link.target = "_blank"; // Optional: open in new tab
+      link.className = "block bg-[#e0f7fa] p-4 rounded-xl shadow hover:bg-[#b2ebf2] transition";
+      link.textContent = model.title;
+      modelList.appendChild(link);
+    });
+  });
+</script>
+
 </body>
 
 </html>
