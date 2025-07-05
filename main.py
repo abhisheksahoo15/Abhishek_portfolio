@@ -32,20 +32,21 @@ async def certification(request: Request):
 async def projects(request: Request):
     project_list = [
         {
-            "name": "Tourism Website",
-            "stack": "Django, HTML/CSS, SQLite",
-            "description": "A full-stack website to explore Indian destinations and manage tour bookings."
+            "name": "Ai Resume Builder and Job Finder -HireFire AI ",
+            "stack": "Python (FastAPI, HTML2PDF, Web Scraping, API Integration),Cloud Technology, HTML, CSS, JavaScript",
+            "description": "A Complete End to End AI Resume Builder and Job Finder Platform. based on the Webscraping , API integration cloud Technology and lot more.",
+            "link": "https://hirefireai.cloud"
         },
         {
-            "name": "Supermarket Data Analysis",
-            "stack": "Python (Pandas, SQL, Power BI)",
-            "description": "Analyzed 100k+ entries across 20+ metrics to create dynamic dashboards."
+            "name": "Student Marks Prediction ML Model",
+            "stack": "Python (Pandas, Scikit-learn, Streamlit,matplotlib, seaborn)",
+            "description": "A Complete end to end machine Learning Model which is trained over existing data and predict the new score - Supervised Machine learning."
         },
-        {
-            "name": "GetSetAI Invoice Generator",
-            "stack": "HTML2PDF, FastAPI",
-            "description": "Automated invoice generation system for students using FastAPI backend."
-        }
+        # {
+        #     "name": "GetSetAI Invoice Generator",
+        #     "stack": "HTML2PDF, FastAPI",
+        #     "description": "Automated invoice generation system for students using FastAPI backend."
+        # }
     ]
 
     return templates.TemplateResponse("webpages/projects.html", {

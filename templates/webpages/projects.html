@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section id="projects" class="max-w-7xl mx-auto py-10" data-aos="fade-up">
-  <h2 class="text-4xl font-bold text-center text-[#0077b6] mb-12">🧠 My Projects</h2>
+<section id="projects" class="max-w-7xl mx-auto py-16 px-4" data-aos="fade-up">
+  <h2 class="text-4xl font-bold text-center text-fuchsia-300 mb-12">🧠 My Projects</h2>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
     {% for project in projects %}
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-2xl transition duration-300">
-        <h4 class="text-xl font-bold text-[#0077b6] mb-2">{{ project.name }}</h4>
-        <p class="text-sm text-gray-600 mb-4">{{ project.description }}</p>
+      <div class="bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-fuchsia-500/40 transition duration-300">
+        <h4 class="text-xl font-bold text-pink-400 mb-2">{{ project.name }}</h4>
+        <p class="text-sm text-gray-300 mb-4">{{ project.description }}</p>
         {% if project.stack %}
-          <p class="text-xs text-gray-500 italic mb-4">Stack: {{ project.stack }}</p>
+          <p class="text-xs text-gray-400 italic mb-4">Stack: {{ project.stack }}</p>
         {% endif %}
-        <div class="flex justify-between">
-          <a href="#" class="text-sm bg-[#00b4d8] text-white px-4 py-2 rounded-full hover:bg-[#0077b6]" target="_blank">GitHub</a>
-          <a href="#" class="text-sm bg-[#0077b6] text-white px-4 py-2 rounded-full hover:bg-[#00b4d8]" target="_blank">Live Demo</a>
+        <div class="flex justify-between mt-4">
+          <a href="{{ project.github_url }}" class="text-sm bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition" target="_blank">
+            GitHub
+          </a>
+          <a href="{{ project.live_url }}" class="text-sm bg-fuchsia-700 text-white px-4 py-2 rounded-full hover:bg-fuchsia-800 transition" target="_blank">
+            Live Demo
+          </a>
         </div>
       </div>
     {% endfor %}
