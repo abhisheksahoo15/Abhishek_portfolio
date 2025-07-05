@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Abhishek Decodes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <!-- Header -->
+  <header class="text-center py-10">
+    <h1 class="text-4xl font-bold text-purple-400">Abhishek Decodes</h1>
+    <p class="text-gray-400 mt-2">Developer | ML Enthusiast | Tech Explorer</p>
+  </header>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16 px-6 md:px-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-4">Let’s Connect</h2>
+      <p class="text-gray-400 mb-8">
+        Have a project or just want to say hi? Reach out using the form below or via social media.
+      </p>
+
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6 text-left">
+        <input type="text" name="name" required placeholder="Your Name"
+          class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"/>
+
+        <input type="email" name="email" required placeholder="Your Email"
+          class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"/>
+
+        <textarea name="message" rows="5" required placeholder="Your Message"
+          class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+
+        <button type="submit"
+          class="w-full bg-purple-600 hover:bg-purple-700 transition duration-200 text-white font-semibold py-3 rounded-lg">
+          Send Message
+        </button>
+      </form>
+
+      <!-- Optional Contact Info -->
+      <div class="mt-10 text-gray-400">
+        <p>Email: <a href="mailto:abhishek@decodes.in" class="text-purple-400 hover:underline">abhishek@decodes.in</a></p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/abhishek" class="text-purple-400 hover:underline" target="_blank">linkedin.com/in/abhishek</a></p>
+        <p>GitHub: <a href="https://github.com/abhishekdecodes" class="text-purple-400 hover:underline" target="_blank">github.com/abhishekdecodes</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-gray-500 text-sm py-6 border-t border-gray-700 mt-10">
+    © 2025 Abhishek Decodes. Built with 💻 by Abhishek Sahoo.
+  </footer>
+
+</body>
+</html>

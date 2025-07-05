@@ -54,3 +54,13 @@ async def projects(request: Request):
         "title": "Projects",
         "projects": project_list
     })
+
+
+
+# ✅ Certification Page Route
+@app.get("/contact", response_class=HTMLResponse)
+async def certification(request: Request):
+    return templates.TemplateResponse("webpages/contact.html", {
+        "request": request,
+        "title": "Certification"
+    })
