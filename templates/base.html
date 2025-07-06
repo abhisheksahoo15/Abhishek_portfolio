@@ -69,11 +69,11 @@
 
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 bg-gradient-to-br from-purple-600 via-pink-600 to-fuchsia-600 text-white">
-    <a href="#hero" class="block py-2">Home</a>
+    <a href="/" class="block py-2">Home</a>
     <a href="#skills" class="block py-2">Skills</a>
-    <a href="#certifications" class="block py-2">Certifications</a>
-    <a href="#current" class="block py-2">Working On</a>
-    <a href="#contact" class="block py-2">Contact</a>
+    <a href="/certificate" class="block py-2">Certifications</a>
+    <!-- <a href="#current" class="block py-2">Working On</a> -->
+    <a href="/contact" class="block py-2">Contact</a>
   </div>
 </nav>
 
@@ -98,13 +98,15 @@
 <script>AOS.init();</script>
 
 <!-- Mobile Menu Toggle -->
-<script>
-  const menuToggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  menuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-  });
-</script>
+  <!-- Mobile Nav Toggle -->
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  </script>
+
 
 </body>
 </html>

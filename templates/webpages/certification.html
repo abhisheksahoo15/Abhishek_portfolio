@@ -68,11 +68,11 @@
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 bg-gradient-to-b from-black via-gray-800 to-fuchsia-800 text-white text-base font-medium">
-      <a href="#hero" class="block py-2">Home</a>
-      <a href="#skills" class="block py-2">Skills</a>
-      <a href="#certifications" class="block py-2">Certifications</a>
-      <a href="#current" class="block py-2">Working On</a>
-      <a href="#contact" class="block py-2">Contact</a>
+      <a href="/" class="block py-2">Home</a>
+      <!-- <a href="#skills" class="block py-2">Skills</a> -->
+      <a href="/certificate" class="block py-2">Certifications</a>
+      <!-- <a href="#current" class="block py-2">Working On</a> -->
+      <a href="/contact" class="block py-2">Contact</a>
     </div>
   </nav>
 
@@ -105,15 +105,27 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-black border-t border-gray-800 py-10 text-center text-sm text-gray-400">
-    <p>&copy; 2025 Abhishek Sahoo. All rights reserved.</p>
-    <div class="mt-4 flex justify-center space-x-6">
-      <a href="#" class="hover:text-fuchsia-400">LinkedIn</a>
-      <a href="#" class="hover:text-fuchsia-400">GitHub</a>
-      <a href="#" class="hover:text-fuchsia-400">Email</a>
-    </div>
-  </footer>
+ <!-- Creative Footer -->
+<footer class="bg-black border-t border-gray-800 py-10 px-6 text-center text-sm text-gray-400">
+  <p class="text-lg font-semibold text-white mb-2">Made with ❤️ by Abhishek Sahoo</p>
+  <p class="mb-4">&copy; 2025 All rights reserved.</p>
+  
+  <div class="mt-4 flex justify-center space-x-8 text-base">
+    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="hover:text-fuchsia-400 transition duration-300 flex items-center gap-2">
+      <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+    <a href="https://github.com/yourusername" target="_blank" class="hover:text-fuchsia-400 transition duration-300 flex items-center gap-2">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="mailto:youremail@example.com" class="hover:text-fuchsia-400 transition duration-300 flex items-center gap-2">
+      <i class="fas fa-envelope"></i> Email
+    </a>
+  </div>
+</footer>
+
+<!-- Font Awesome CDN for icons (add in <head> or before </body>) -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -125,5 +137,9 @@
       mobileMenu.classList.toggle("hidden");
     });
   </script>
+
+
+
+
 </body>
 </html>
