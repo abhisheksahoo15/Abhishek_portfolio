@@ -65,6 +65,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'abhiportfolio'
+          app-name: 'abhishekdecode'
           slot-name: 'Production'
           
