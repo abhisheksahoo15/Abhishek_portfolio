@@ -57,14 +57,13 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_014D4394AE0A45249B44EDEBE8DB1739 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_600410DDBDBA41E7A0919FF266464390 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F97886C7D91747FA8788D7EB03772FB8 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_73EFC802B96C4C3AA418E58355DB0C64 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_678FED5F49BA45CD8130AB53FBE77794 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_05C5E622567A432F97DB710513065310 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'abhishekdecodes'
+          app-name: 'abhishekdecode'
           slot-name: 'Production'
-          
