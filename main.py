@@ -31,6 +31,14 @@ async def certification(request: Request):
 @app.get("/projects", response_class=HTMLResponse)
 async def projects(request: Request):
     project_list = [
+        
+        {
+            "name": "Spam Shield Ai - Natural Language Processing",
+            "Stack": "Python (Pandas, Scikit-learn, NumPy), Natural Language Processing, Machine Learning, Classification Algorithms, Vectorization techniques (TF-IDF, CountVectorizer), Matplotlib & Seaborn for visualization, Streamlit for deployment, Cloud deployment (FastAPI, Docker, OCI)",
+            "description": "Spam Shield AI is an open-source tool that uses Natural Language Processing (NLP) and Machine Learning to detect spam and scam messages before they reach you. It learns from past messages and intelligently predicts whether a new message is safe or dangerous .",
+            "link": "https://spamshieldai.in"
+        },
+
         {
             "name": "Ai Resume Builder and Job Finder -HireFire AI ",
             "stack": "Python (FastAPI, HTML2PDF, Web Scraping, API Integration),Cloud Technology, HTML, CSS, JavaScript",
@@ -41,7 +49,7 @@ async def projects(request: Request):
             "name": "Student Marks Prediction ML Model",
             "stack": "Python (Pandas, Scikit-learn, Streamlit,matplotlib, seaborn)",
             "description": "A Complete end to end machine Learning Model which is trained over existing data and predict the new score - Supervised Machine learning."
-        },
+        }
         # {
         #     "name": "GetSetAI Invoice Generator",
         #     "stack": "HTML2PDF, FastAPI",
@@ -64,3 +72,6 @@ async def certification(request: Request):
         "request": request,
         "title": "Certification"
     })
+
+
+
