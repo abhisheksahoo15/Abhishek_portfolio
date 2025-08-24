@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abhishek Sahoo | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <meta name="theme-color" content="#0f0b1e" />
+  <style>
+    :root {
+      --neon-pink: #ff8ef9;
+      --neon-fuchsia: #1edaff;
+      --neon-cyan: #5b02ff;
+    }
+
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif; }
+
+    /* Link underline hover */
+    .nav-link { position: relative; transition: color .3s ease; }
+    .nav-link::after { content: ""; position: absolute; width: 0%; height: 2px; bottom: -6px; left: 0; background: linear-gradient(90deg, #fff, var(--neon-fuchsia)); transition: width .25s ease; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* Neon utilities */
+    .shadow-neon { box-shadow: 0 0 20px rgba(39, 125, 245, 0.6), 0 0 40px rgba(34,211,238,.35); }
+    .border-neon { border-image: linear-gradient(45deg, var(--neon-fuchsia), var(--neon-cyan)) 1; border-width: 2px; border-style: solid; }
+
+    /* Floating neon clouds */
+    .orb { position: absolute; border-radius: 9999px; filter: blur(80px); opacity: .45; mix-blend-mode: screen; will-change: transform; }
+    .orb--1 { width: 360px; height: 360px; background: var(--neon-fuchsia); top: 8%; left: -60px; animation: float 10s ease-in-out infinite alternate; }
+    .orb--2 { width: 300px; height: 300px; background: var(--neon-cyan); top: 40%; right: -80px; animation: float 12s ease-in-out 1s infinite alternate; }
+    .orb--3 { width: 420px; height: 420px; background: #a78bfa; bottom: -100px; left: 25%; animation: float 14s ease-in-out .5s infinite alternate; }
+    @keyframes float { from { transform: translateY(0) translateX(0);} to { transform: translateY(-40px) translateX(30px);} }
+
+    /* Animated gradient background overlay */
+    .animated-bg { background: radial-gradient(1200px 600px at 20% 10%, rgba(217,70,239,.15), transparent 60%),
+                   radial-gradient(1000px 500px at 90% 40%, rgba(34,211,238,.12), transparent 60%),
+                   linear-gradient(135deg, #0a0a0f, #0b0a14 40%, #140a1e 100%);
+                   position: fixed; inset: 0; z-index: -20; }
+
+    /* Typewriter */
+    .typewriter { overflow: hidden; border-right: .15em solid var(--neon-fuchsia); white-space: nowrap; animation: typing 3.8s steps(36, end), blink .85s step-end infinite; }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink { 50% { border-color: transparent } }
+
+    /* Frosted glass */
+    .glass { backdrop-filter: saturate(160%) blur(10px); background: rgba(15, 15, 25, 0.55); }
+
+    /* Scrollbar subtle */
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--neon-fuchsia), var(--neon-cyan)); border-radius: 9999px; }
+
+    /* Card hover */
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(217,70,239,.15); }
+  </style>
+</head>
+
+<body class="min-h-screen text-white">
+  <!-- Background layers -->
+  <div class="animated-bg"></div>
+  <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full z-50 transition-all">
+    <div class="glass border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></div>
+          <span class="text-lg sm:text-xl font-extrabold bg-gradient-to-r from-white via-pink-300 to-fuchsia-500 bg-clip-text text-transparent tracking-wider">
+            Abhishek Portfolio
+          </span>
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="#hero" class="nav-link hover:text-pink-300">Home</a>
+          <a href="#skills" class="nav-link hover:text-pink-300">Skills</a>
+          <a href="#certifications" class="nav-link hover:text-pink-300">Certifications</a>
+          <a href="#projects" class="nav-link hover:text-pink-300">Projects</a>
+          <a href="#contact" class="nav-link hover:text-pink-300">Contact</a>
+        </div>
+        <div class="flex items-center gap-3 md:hidden">
+          <button id="theme-toggle" aria-label="Toggle theme" class="p-2 rounded-lg border border-white/10">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button id="menu-toggle" class="text-white text-2xl">☰</button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 text-white text-base">
+        <a href="#hero" class="block py-2">Home</a>
+        <a href="#skills" class="block py-2">Skills</a>
+        <a href="#certifications" class="block py-2">Certifications</a>
+        <a href="#projects" class="block py-2">Projects</a>
+        <a href="#contact" class="block py-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero" class="pt-28 md:pt-32 pb-10 md:pb-20 px-6">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-10" data-aos="fade-up">
+      <div>
+        <p class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs tracking-wide uppercase">
+          <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+          Open to Opportunities
+        </p>
+        <h1 class="mt-4 text-4xl sm:text-5xl font-black leading-tight">
+          Hi, I'm <span class="text-fuchsia-400">Abhishek Sahoo</span>
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-gray-300 typewriter">
+          A man chasing a sky full of dreams — trading sleep for caffeine and code to turn ideas into reality.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href="#projects" class="bg-fuchsia-600 text-white px-6 py-3 rounded-full hover:scale-110 shadow-neon transition">Explore My Works</a>
+          <a href="/static/docu/AbhishekSahoo_CV.pdf" download class="bg-pink-600 text-white px-6 py-3 rounded-full hover:scale-110 shadow-neon transition">Download CV</a>
+          <a href="https://getsetai.in" target="_blank" class="bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-6 py-3 rounded-full hover:opacity-90 hover:scale-105 transition">🌐 Join My ML Community</a>
+        </div>
+      </div>
+      <div class="relative flex justify-center" data-aos="zoom-in">
+        <div class="absolute inset-0 -z-10 blur-3xl opacity-50 rounded-full bg-gradient-to-tr from-fuchsia-500/40 to-cyan-300/30"></div>
+        <img src="/static/images/dp/abhishek.jpg" alt="Abhishek" class="rounded-full w-56 sm:w-64 md:w-72 border-4 border-fuchsia-600 shadow-neon hover:scale-105 transition" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects / Models -->
+  <section id="projects" class="px-6 py-12 md:py-16">
+    <div class="max-w-7xl mx-auto" data-aos="fade-up">
+      <div class="bg-black/40 glass rounded-2xl p-6 md:p-8 border border-white/10">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <h3 class="text-2xl md:text-3xl font-bold text-fuchsia-300">🔍 Explore My Projects</h3>
+          <div class="flex items-center gap-2">
+            <button id="theme-toggle-desktop" class="hidden md:inline-flex px-3 py-2 rounded-lg border border-white/10" title="Toggle theme">
+              <i class="fas fa-adjust"></i>
+            </button>
+          </div>
+        </div>
+        <div class="mt-4">
+          <input id="search-input" type="text" placeholder="Search ML tools, algorithms, projects..." class="w-full px-4 py-3 rounded-lg border border-gray-700 bg-black/70 focus:outline-none focus:ring-2 focus:ring-pink-500 transition" />
+          <div class="flex flex-wrap gap-3 mt-4">
+            <button class="filter-btn bg-pink-600 text-white px-4 py-2 rounded-full text-sm" data-category="all">All</button>
+            <button class="filter-btn bg-gray-700 px-4 py-2 rounded-full text-sm" data-category="ml">Machine Learning</button>
+            <button class="filter-btn bg-gray-700 px-4 py-2 rounded-full text-sm" data-category="nlp">NLP</button>
+            <button class="filter-btn bg-gray-700 px-4 py-2 rounded-full text-sm" data-category="cv">Computer Vision</button>
+          </div>
+          <div id="model-list" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Skills Section -->
+  <section id="skills" class="py-16 bg-gradient-to-br from-black via-gray-900 to-fuchsia-900" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto px-4">
+      <h3 class="text-3xl font-bold text-fuchsia-400 text-center mb-12">💡 My Skills</h3>
+      <div class="grid gap-8 md:grid-cols-2">
+        <div class="bg-gray-800 rounded-xl p-6 shadow hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold text-fuchsia-300 mb-4">🧠 Programming</h4>
+          <div class="flex flex-wrap gap-3 text-gray-300">
+            <span>Python</span><span>Machine Learning</span><span>Scikit-Learn</span><span>MySQL</span>
+            <span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Java</span>
+          </div>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-6 shadow hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold text-fuchsia-300 mb-4">📊 Data Visualization</h4>
+          <div class="flex flex-wrap gap-3 text-gray-300">
+            <span>Power BI</span><span>Google Looker</span><span>MS Excel</span><span>Quadratic AI</span>
+          </div>
+        </div>
+        <div class="bg-gray-800 rounded-xl p-6 shadow hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold text-fuchsia-300 mb-4">☁️ Cloud & Deployment</h4>
+          <div class="flex flex-wrap gap-3 text-gray-300">
+            <span>Azure</span><span>AWS</span><span>GitHub Actions</span><span>Docker</span>
+            <span>Terraform</span><span>Heroku</span>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 rounded-xl p-6 shadow hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold text-fuchsia-300 mb-4"> Web Scraping</h4>
+          <div class="flex flex-wrap gap-3 text-gray-300">
+            <span>BeautifulSoup</span><span>Selenium</span><span>Scrapy</span>
+            
+          </div>
+        </div>
+
+
+        <div class="bg-gray-800 rounded-xl p-6 shadow hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold text-fuchsia-300 mb-4">🧩 Frameworks</h4>
+          <div class="flex flex-wrap gap-3 text-gray-300">
+            <span>Django</span><span>FastAPI</span><span>Flask</span><span>Streamlit</span>
+          </div>
+        </div>
+
+        <div class="bg-gray-800 rounded-xl p-6 shadow hover:shadow-lg transition">
+          <h4 class="text-xl font-semibold text-fuchsia-300 mb-4"> 🛠️ Additional Technical Skills</h4>
+          <div class="flex flex-wrap gap-3 text-gray-300">
+             <span>Data Structures & Algorithms</span><span>Command Line</span><span>OOPS</span><span>CI/CD</span>
+            
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certifications" class="py-14 md:py-20">
+    <div class="max-w-7xl mx-auto px-6" data-aos="fade-up">
+      <h3 class="text-3xl font-bold text-center text-fuchsia-300 mb-10">📜 Certifications</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-black/50 glass rounded-2xl p-6 border border-white/10 hover:shadow-neon transition">
+          <h4 class="font-bold text-lg text-pink-300">Advance Python Programming</h4>
+          <p class="text-sm text-gray-400 mt-2">Credential ID: 033256694326</p>
+        </div>
+        <div class="bg-black/50 glass rounded-2xl p-6 border border-white/10 hover:shadow-neon transition">
+          <h4 class="font-bold text-lg text-pink-300">Data Visualization – TATA</h4>
+          <p class="text-sm text-gray-400 mt-2">By TATA</p>
+        </div>
+        <div class="bg-black/50 glass rounded-2xl p-6 border border-white/10 hover:shadow-neon transition">
+          <h4 class="font-bold text-lg text-pink-300">Data Science & Analytics – HP</h4>
+          <p class="text-sm text-gray-400 mt-2">Issued by HP</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Footer CTA -->
+  <section id="contact" class="py-14 md:py-20">
+    <div class="max-w-4xl mx-auto px-6 text-center" data-aos="zoom-in">
+      <div class="glass bg-black/50 rounded-2xl p-8 border border-white/10">
+        <h3 class="text-2xl md:text-3xl font-extrabold">Let's build something amazing ✨</h3>
+        <p class="mt-2 text-gray-300">I'm open to freelance, internships, and full-time roles in ML/Data.</p>
+        <div class="mt-6 flex flex-wrap justify-center gap-4">
+          <a href="mailto:youremail@example.com" class="px-5 py-3 rounded-xl bg-fuchsia-600 hover:scale-110 shadow-neon transition"><i class="far fa-envelope mr-2"></i>Email Me</a>
+          <a href="https://www.linkedin.com/in/abhisheksahoo15/" target="_blank" class="px-5 py-3 rounded-xl bg-sky-600 hover:scale-110 transition"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
+          <a href="https://github.com/abhisheksahoo15" target="_blank" class="px-5 py-3 rounded-xl bg-gray-800 hover:scale-110 transition"><i class="fab fa-github mr-2"></i>GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black/70 border-t border-white/10 py-10 px-6 text-center text-sm text-gray-400">
+    <p class="text-lg font-semibold text-white mb-2">Made with ❤️ by Abhishek Sahoo</p>
+    <div class="mt-4 flex justify-center space-x-8 text-base">
+      <a href="https://www.linkedin.com/in/abhisheksahoo15/" target="_blank" class="hover:text-fuchsia-400">LinkedIn</a>
+      <a href="https://github.com/abhisheksahoo15" target="_blank" class="hover:text-fuchsia-400">GitHub</a>
+      <a href="mailto:youremail@example.com" class="hover:text-fuchsia-400">Email</a>
+    </div>
+    <p class="mt-6 text-xs text-gray-500">© <span id="year"></span> Abhishek Sahoo. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to top button -->
+  <button id="to-top" class="fixed bottom-6 right-6 p-3 rounded-full bg-fuchsia-600 shadow-neon hidden" title="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script>
+    AOS.init({ once: true, duration: 700, offset: 60 });
+
+    // Elements
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+    const toTop = document.getElementById('to-top');
+
+    // Mobile menu
+    menuToggle?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Back to top visibility
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) toTop.classList.remove('hidden');
+      else toTop.classList.add('hidden');
+    });
+    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Dark/Light theme (class toggle on <html>)
+    function toggleTheme() {
+      const root = document.documentElement;
+      if (root.classList.contains('dark')) {
+        root.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        root.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    [themeToggle, themeToggleDesktop].forEach(btn => btn?.addEventListener('click', toggleTheme));
+    // Init theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+
+    // Models data
+    const models = [
+      { title: "ML - Student Marks Prediction", keywords: ["student","marks","ml","prediction"], category: "ml", link: "https://student-marks-prediction-ml-model-czutaxvjvugg3kaedvyuot.streamlit.app/" },
+      { title: "AI Resume Builder - HIREFIREAI", keywords: ["resume","job","hirefireai","builder"], category: "ml", link: "https://hirefireai.cloud" },
+      { title: "Spam Shield AI - NLP", keywords: ["nlp","spam","shield","text"], category: "nlp", link: "https://spamshieldai.in" },
+      // { title: "Image Classifier - Computer Vision", keywords: ["cv","vision","image","classifier"], category: "cv", link: "https://example.com" }
+    ];
+
+    const searchInput = document.getElementById('search-input');
+    const modelList = document.getElementById('model-list');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let activeCategory = 'all';
+
+    function filterModels(query) {
+      const q = (query || '').toLowerCase();
+      return models.filter(model => {
+        const matchCategory = (activeCategory === 'all' || model.category === activeCategory);
+        const matchSearch = (!q || model.keywords.some(k => k.toLowerCase().includes(q)) || model.title.toLowerCase().includes(q));
+        return matchCategory && matchSearch;
+      });
+    }
+
+    function chip(text){
+      const s = document.createElement('span');
+      s.className = 'px-2 py-0.5 text-xs rounded-full border border-white/10 text-gray-300';
+      s.textContent = text;
+      return s;
+    }
+
+    function renderResults(items) {
+      modelList.innerHTML = '';
+      if (!items.length) {
+        modelList.innerHTML = `<p class='text-red-400'>No matching models found.</p>`;
+        return;
+      }
+      items.forEach(model => {
+        const card = document.createElement('a');
+        card.href = model.link; card.target = '_blank';
+        card.className = 'block bg-gray-900/60 glass border border-white/10 rounded-2xl p-5 card-hover transition group';
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <h4 class="text-lg font-semibold group-hover:text-fuchsia-300">${model.title}</h4>
+            <span class="px-2 py-1 text-[11px] rounded-md bg-fuchsia-600/20 border border-fuchsia-600/30 text-fuchsia-200 uppercase">${model.category}</span>
+          </div>
+          <div class="mt-3 flex flex-wrap gap-2" data-keywords></div>
+          <div class="mt-4 inline-flex items-center gap-2 text-sm text-fuchsia-300">View Project <i class="fas fa-arrow-right"></i></div>
+        `;
+        const kw = card.querySelector('[data-keywords]');
+        model.keywords.slice(0,4).forEach(k => kw.appendChild(chip(k)));
+        modelList.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('input', () => renderResults(filterModels(searchInput.value)));
+
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const results = filterModels(searchInput.value);
+        if (results.length > 0) window.open(results[0].link, '_blank');
+      }
+    });
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('bg-pink-600','text-white'));
+        btn.classList.add('bg-pink-600','text-white');
+        activeCategory = btn.dataset.category;
+        renderResults(filterModels(searchInput.value));
+      });
+    });
+
+    renderResults(models);
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

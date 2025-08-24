@@ -1,27 +1,189 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section id="projects" class="max-w-7xl mx-auto py-16 px-4" data-aos="fade-up">
-  <h2 class="text-4xl font-bold text-center text-fuchsia-300 mb-12">🧠 My Projects</h2>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    {% for project in projects %}
-      <div class="bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-fuchsia-500/40 transition duration-300">
-        <h4 class="text-xl font-bold text-pink-400 mb-2">{{ project.name }}</h4>
-        <p class="text-sm text-gray-300 mb-4">{{ project.description }}</p>
-        {% if project.stack %}
-          <p class="text-xs text-gray-400 italic mb-4">Stack: {{ project.stack }}</p>
-        {% endif %}
-        <div class="flex justify-between mt-4">
-          <a href="{{ project.github_url }}" class="text-sm bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition" target="_blank">
-            GitHub
-          </a>
-          <a href="{{ project.live_url }}" class="text-sm bg-fuchsia-700 text-white px-4 py-2 rounded-full hover:bg-fuchsia-800 transition" target="_blank">
-            Live Demo
-          </a>
+<!-- Projects / Models -->
+<section id="projects" class="px-6 py-12 md:py-16">
+  <div class="max-w-7xl mx-auto" data-aos="fade-up">
+    <div class="bg-black/40 glass rounded-2xl p-6 md:p-8 border border-white/10">
+      
+      <!-- Heading + Theme Toggle -->
+      <div class="flex items-center justify-between flex-wrap gap-4">
+        <h3 class="text-2xl md:text-3xl font-bold text-fuchsia-300">🔍 Explore My Projects</h3>
+        <div class="flex items-center gap-2">
+          <button id="theme-toggle-desktop" class="hidden md:inline-flex px-3 py-2 rounded-lg border border-white/10" title="Toggle theme">
+            <i class="fas fa-adjust"></i>
+          </button>
         </div>
       </div>
-    {% endfor %}
+
+      <!-- Search + Filters -->
+      <div class="mt-4">
+        <input id="search-input" type="text" placeholder="Search tools, algorithms, projects..." 
+          class="w-full px-4 py-3 rounded-lg border border-gray-700 bg-black/70 focus:outline-none focus:ring-2 focus:ring-pink-500 transition" />
+
+        <div class="flex flex-wrap gap-3 mt-4">
+          <button class="filter-btn bg-pink-600 text-white px-4 py-2 rounded-full text-sm" data-category="all">All</button>
+          <button class="filter-btn bg-gray-700 px-4 py-2 rounded-full text-sm" data-category="ml">Machine Learning</button>
+          <button class="filter-btn bg-gray-700 px-4 py-2 rounded-full text-sm" data-category="nlp">NLP</button>
+          <button class="filter-btn bg-gray-700 px-4 py-2 rounded-full text-sm" data-category="cv">Computer Vision</button>
+        </div>
+
+        <!-- Project Cards -->
+        <div id="model-list" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {% for project in projects %}
+            <div class="bg-gray-900/60 glass border border-white/10 rounded-2xl p-5 card-hover transition group flex flex-col">
+              
+              <!-- Title + Category -->
+              <div class="flex items-start justify-between gap-3">
+                <h4 class="text-lg font-semibold group-hover:text-fuchsia-300">{{ project.name }}</h4>
+                {% if project.category %}
+                  <span class="px-2 py-1 text-[11px] rounded-md bg-fuchsia-600/20 border border-fuchsia-600/30 text-fuchsia-200 uppercase">
+                    {{ project.category }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <!-- Description -->
+              <p class="mt-2 text-sm text-gray-300">{{ project.description }}</p>
+
+              <!-- Thumbnail -->
+              {% if project.image_url %}
+                <img src="{{ project.image_url }}" alt="{{ project.name }}" class="mt-3 rounded-lg border border-white/10">
+              {% endif %}
+
+              <!-- Stack Badges -->
+              {% if project.stack %}
+                <div class="mt-3 flex flex-wrap gap-2">
+                  {% for tech in project.stack.split(",") %}
+                    <span class="px-2 py-0.5 text-xs rounded-full border border-white/10 text-gray-300 bg-white/5">{{ tech }}</span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <!-- Buttons -->
+              <div class="mt-4 flex items-center gap-2">
+                {% if project.live_url %}
+                  <a class="px-3 py-2 rounded-lg bg-fuchsia-600 ripple" href="{{ project.live_url }}" target="_blank">Open</a>
+                {% endif %}
+                {% if project.github_url %}
+                  <a class="px-3 py-2 rounded-lg bg-gray-700" href="{{ project.github_url }}" target="_blank">GitHub</a>
+                {% endif %}
+                <button class="px-3 py-2 rounded-lg bg-gray-800" data-preview>Preview</button>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Project Modal -->
+<div id="project-modal" class="fixed inset-0 hidden bg-black/70 backdrop-blur flex items-center justify-center z-50">
+  <div class="bg-gray-900 rounded-2xl p-6 max-w-lg w-full relative">
+    <button data-close class="absolute top-3 right-3 text-gray-400 hover:text-white">✕</button>
+    <h3 id="project-title" class="text-xl font-bold text-fuchsia-300 mb-2"></h3>
+    <p id="project-desc" class="text-sm text-gray-300 mb-4"></p>
+    <img id="project-img" src="" alt="" class="rounded-lg border border-white/10 mb-4">
+    <div id="project-tags" class="flex flex-wrap gap-2 mb-4"></div>
+    <a id="project-open" href="#" target="_blank" class="px-4 py-2 rounded-lg bg-fuchsia-600 text-white">Open Project</a>
+  </div>
+</div>
+
+
+<script>
+  
+    /* ===== Models data (kept + extended) ===== */
+    const models = [
+      { title: "Spam Shield AI - NLP", keywords: ["nlp","spam","shield","text"], category: "nlp", link: "https://spamshieldai.in", img: "/static/images/project/spamshield.png", desc: "Classify spam vs ham with NLP pipeline." },
+            { title: "AI Resume Builder - HIREFIREAI", keywords: ["resume","job","hirefireai","builder"], category: "ml", link: "https://hirefireai.cloud", img: "/static/images/project/hirefireai.jpg", desc: "Generate tailored resumes powered by AI prompts." },
+      { title: "ML - Student Marks Prediction", keywords: ["student","marks","ml","prediction"], category: "ml", link: "https://student-marks-prediction-ml-model-czutaxvjvugg3kaedvyuot.streamlit.app/", img: "https://dummyimage.com/1200x630/0f172a/e2e8f0&text=Student+Marks+Prediction", desc: "Predict student marks using regression and EDA." },
+
+      
+      // { title: "Image Classifier - Computer Vision", keywords: ["cv","vision","image","classifier"], category: "cv", link: "https://example.com" }
+    ];
+
+    const searchInput = document.getElementById('search-input');
+    const modelList = document.getElementById('model-list');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let activeCategory = 'all';
+
+    function filterModels(query) {
+      const q = (query || '').toLowerCase();
+      return models.filter(model => {
+        const matchCategory = (activeCategory === 'all' || model.category === activeCategory);
+        const matchSearch = (!q || model.keywords.some(k => k.toLowerCase().includes(q)) || model.title.toLowerCase().includes(q));
+        return matchCategory && matchSearch;
+      });
+    }
+
+    function chip(text){
+      const s = document.createElement('span');
+      s.className = 'px-2 py-0.5 text-xs rounded-full border border-white/10 text-gray-300';
+      s.textContent = text;
+      return s;
+    }
+
+    // open modal for project preview
+    function openModal(model){
+      const modal = document.getElementById('project-modal');
+      modal.querySelector('#project-title').textContent = model.title;
+      modal.querySelector('#project-desc').textContent = model.desc || '';
+      modal.querySelector('#project-img').src = model.img || '';
+      modal.querySelector('#project-open').href = model.link;
+      const tags = modal.querySelector('#project-tags'); tags.innerHTML='';
+      (model.keywords||[]).forEach(t=>{ const s=chip(t); s.classList.add('bg-white/5'); tags.appendChild(s); });
+      modal.classList.add('open');
+    }
+
+    function renderResults(items) {
+      modelList.innerHTML = '';
+      if (!items.length) { modelList.innerHTML = `<p class='text-red-400'>No matching models found.</p>`; return; }
+      items.forEach(model => {
+        const card = document.createElement('div');
+        card.className = 'bg-gray-900/60 glass border border-white/10 rounded-2xl p-5 card-hover transition group flex flex-col';
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <h4 class="text-lg font-semibold group-hover:text-fuchsia-300">${model.title}</h4>
+            <span class="px-2 py-1 text-[11px] rounded-md bg-fuchsia-600/20 border border-fuchsia-600/30 text-fuchsia-200 uppercase">${model.category}</span>
+          </div>
+          <p class="mt-2 text-sm text-gray-300">${model.desc || ''}</p>
+          <img src="${model.img}" alt="${model.title}" class="mt-3 rounded-lg border border-white/10">
+          <div class="mt-3 flex flex-wrap gap-2" data-keywords></div>
+          <div class="mt-4 flex items-center gap-2">
+            <a class="px-3 py-2 rounded-lg bg-fuchsia-600 ripple" href="${model.link}" target="_blank">Open</a>
+            <button class="px-3 py-2 rounded-lg bg-gray-700" data-preview>Preview</button>
+          </div>
+        `;
+        const kw = card.querySelector('[data-keywords]');
+        model.keywords.slice(0,4).forEach(k => kw.appendChild(chip(k)));
+        card.querySelector('[data-preview]').addEventListener('click', ()=>openModal(model));
+        modelList.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('input', () => renderResults(filterModels(searchInput.value)));
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const results = filterModels(searchInput.value);
+        if (results.length > 0) window.open(results[0].link, '_blank');
+      }
+    });
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('bg-pink-600','text-white'));
+        btn.classList.add('bg-pink-600','text-white');
+        activeCategory = btn.dataset.category;
+        renderResults(filterModels(searchInput.value));
+      });
+    });
+
+    renderResults(models);
+
+    // Close modal events
+    document.querySelectorAll('#project-modal [data-close]').forEach(el => el.addEventListener('click', () => document.getElementById('project-modal').classList.remove('open')));
+    document.getElementById('project-modal').addEventListener('click', (e)=>{ if(e.target.id==='project-modal') e.currentTarget.classList.remove('open'); });
+</script
 {% endblock %}
