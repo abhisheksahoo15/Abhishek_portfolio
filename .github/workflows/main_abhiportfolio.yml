@@ -41,6 +41,7 @@ jobs:
           path: |
             .
             !venv/
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -57,14 +58,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_73EFC802B96C4C3AA418E58355DB0C64 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_678FED5F49BA45CD8130AB53FBE77794 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_05C5E622567A432F97DB710513065310 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DD77A5CE9EFC482B8AB66F7524CF8F91 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_183E9694A35249C98EEA97596B5ADC22 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_02186CA5D3E849F0B1138E353535A52C }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'abhishekdecode'
+          app-name: 'abhiportfolio'
           slot-name: 'Production'
           
