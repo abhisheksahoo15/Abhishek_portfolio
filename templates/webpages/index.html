@@ -16,46 +16,127 @@
        ========================================================== -->
   <style>
 
-    
-    /* Welcome Screen */
-    #welcome-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(270deg, #0f172a, #1e40af, #6d28d9, #c405e6);
-background-size: 800% 800%;
-animation: gradientBG 12s ease infinite;
+/* Welcome Screen */
+#welcome-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #0f0f1a, #000);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
 
+/* Stylish Animated Grid Lines */
+#welcome-screen::before,
+#welcome-screen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    linear-gradient(90deg, rgba(100, 0, 200, 0.2) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(0, 150, 255, 0.15) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 12s linear infinite;
+  z-index: 0;
+}
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 1000;
-      opacity: 1;
-      transition: opacity 1s ease-in-out;
-    }
+#welcome-screen::after {
+  background-image: 
+    linear-gradient(90deg, rgba(255, 0, 150, 0.15) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(0, 200, 255, 0.1) 1px, transparent 1px);
+  animation: gridMoveReverse 15s linear infinite;
+  mix-blend-mode: screen;
+}
 
-    #welcome-screen h1 {
-      font-size: 2.5rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 2s ease forwards;
-    }
+/* Grid Animations */
+@keyframes gridMove {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-50px, -50px) rotate(2deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+@keyframes gridMoveReverse {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(50px, 50px) rotate(-2deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+/* Welcome Text */
+#welcome-screen h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: transparent;
+  background: linear-gradient(270deg, #ff007c, #00f0ff, #d100ff, #00ffcc, #0050ff);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  position: relative;
+  animation: textFlow 6s ease-in-out infinite, fadeInUp 2s ease forwards;
+  z-index: 2;
+  overflow: hidden;
+}
 
-    @keyframes gradientBG {
+/* Futuristic glowing scan-line effect */
+#welcome-screen h1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 0, 124, 0.2) 25%,
+    rgba(0, 240, 255, 0.3) 50%,
+    transparent 75%
+  );
+  animation: scanLine 4s linear infinite;
+  z-index: 1;
+}
+
+/* Subtle neon outline */
+#welcome-screen h1::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 0, 200, 0.6);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+/* Flowing gradient */
+@keyframes textFlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Scan line animation */
+@keyframes scanLine {
+  0% { left: -100%; }
+  50% { left: 0%; }
+  100% { left: 100%; }
+}
+
+/* Fade In Text */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
     :root {
@@ -209,8 +290,15 @@ animation: gradientBG 12s ease infinite;
         Hi, I'm <span class="text-fuchsia-400">Abhishek Sahoo</span>
       </h1>
       <p class="mt-4 text-sm sm:text-base md:text-lg text-gray-300">
-        A Man chasing a sky full of dreams — sacrificing sleep, choosing caffeine, and writing line after line of code to turn ideas into reality. From data science to full-stack magic, I live to create and innovate.
-      </p>
+        I’m just here chasing the sky full of impossible ideas,<b>Man with a million dreams</b> powered by curiosity.sacrificing sleep and lovely nights for this stuff.<span style="
+  display:inline-block;
+  font-weight:800;
+  background: linear-gradient(90deg, #ff2fb9 0%, #ffffff 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+"> My obsession for touching my codes are uff.</span> I don’t just fight bugs — I create them accidentally, then battle them like a Fighter ,AI is my playground, ML is my puzzle board, and Data is the storybook I keep rewriting.</p>
       <div class="mt-6 flex flex-col sm:flex-row flex-wrap gap-4 justify-center md:justify-start">
         <a href="#projects" class="bg-fuchsia-600 text-white px-6 py-3 rounded-full hover:scale-110 shadow-neon transition ripple focus-ring text-center">Explore My Works</a>
         <a id="cv-btn" href="/static/docu/AbhishekSahoo_CV.pdf" download class="bg-pink-600 text-white px-6 py-3 rounded-full hover:scale-110 shadow-neon transition ripple focus-ring text-center">Download CV</a>
@@ -414,240 +502,369 @@ animation: gradientBG 12s ease infinite;
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script>
-/* Init AOS */
+<script>
+  /* ===== Init AOS ===== */
 AOS.init({ once: true, duration: 7000, offset: 60 });
 
 /* ===== Preloader ===== */
-window.addEventListener('load', () => {
-  const p = document.getElementById('preloader');
-  p.style.opacity = '0';
+window.addEventListener("load", () => {
+  const p = document.getElementById("preloader");
+  p.style.opacity = "0";
   setTimeout(() => {
     p.style.opacity = "0";
     setTimeout(() => {
       p.style.display = "none";
     }, 1000); // fade-out duration
   }, 1000); // keep preloader for 5s minimum
-  }); // ⬅️ increased to 5s
+});
 
+/* ===== Starfield Background ===== */
+(function starfield() {
+  const c = document.getElementById("starfield");
+  if (!c) return;
+  const ctx = c.getContext("2d");
+  function resize() {
+    c.width = innerWidth;
+    c.height = innerHeight;
+  }
+  resize();
+  addEventListener("resize", resize);
+  const stars = Array.from({ length: 140 }, () => ({
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+    z: Math.random() * 1.2 + 0.2,
+  }));
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    for (const s of stars) {
+      const r = s.z * 1.5;
+      ctx.globalAlpha = s.z;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      s.x += 0.2 + s.z * 0.6;
+      if (s.x > c.width + 2) s.x = -2;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
+/* ===== Parallax on orbs (mouse move) ===== */
+(function parallax() {
+  const wrap = document.getElementById("orbs-wrap");
+  if (!wrap) return;
+  const orbs = wrap.querySelectorAll(".orb");
+  window.addEventListener("pointermove", (e) => {
+    const cx = innerWidth / 2,
+      cy = innerHeight / 2;
+    const dx = (e.clientX - cx) / cx;
+    const dy = (e.clientY - cy) / cy;
+    orbs.forEach((o) => {
+      const d = parseFloat(o.dataset.depth || "0.05");
+      o.style.transform = `translate(${dx * 20 * d}px, ${dy * 20 * d}px)`;
+    });
+  });
+})();
 
-    /* ===== Starfield Background ===== */
-    (function starfield(){
-      const c = document.getElementById('starfield');
-      const ctx = c.getContext('2d');
-      function resize(){ c.width = innerWidth; c.height = innerHeight; }
-      resize(); addEventListener('resize', resize);
-      const stars = Array.from({length: 140}, () => ({ x: Math.random()*c.width, y: Math.random()*c.height, z: Math.random()*1.2 + 0.2 }));
-      function draw(){
-        ctx.clearRect(0,0,c.width,c.height);
-        for (const s of stars){
-          const r = s.z * 1.5; ctx.globalAlpha = s.z; ctx.beginPath(); ctx.arc(s.x, s.y, r, 0, Math.PI*2); ctx.fillStyle = '#ffffff'; ctx.fill();
-          s.x += (0.2 + s.z*0.6); if (s.x > c.width + 2) s.x = -2;
-        }
-        requestAnimationFrame(draw);
+/* ===== Elements ===== */
+const themeToggle = document.getElementById("theme-toggle");
+const themeToggleDesktop = document.getElementById("theme-toggle-desktop");
+const toTop = document.getElementById("to-top");
+const menuToggle = document.getElementById("menu-toggle");
+const mobileMenu = document.getElementById("mobile-menu");
+const hamburgerIcon = document.getElementById("hamburger-icon");
+const closeIcon = document.getElementById("close-icon");
+
+// Mobile menu toggle
+menuToggle?.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+  hamburgerIcon?.classList.toggle("hidden");
+  closeIcon?.classList.toggle("hidden");
+});
+
+// Back to top visibility
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 400) toTop?.classList.remove("hidden");
+  else toTop?.classList.add("hidden");
+});
+toTop?.addEventListener("click", () =>
+  window.scrollTo({ top: 0, behavior: "smooth" })
+);
+
+// Dark/Light theme toggle
+function toggleTheme() {
+  const root = document.documentElement;
+  if (root.classList.contains("dark")) {
+    root.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  } else {
+    root.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  }
+}
+[themeToggle, themeToggleDesktop].forEach((btn) =>
+  btn?.addEventListener("click", toggleTheme)
+);
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "dark") document.documentElement.classList.add("dark");
+
+// Confetti-lite on CV click
+document.getElementById("cv-btn")?.addEventListener("click", () => {
+  for (let i = 0; i < 24; i++)
+    setTimeout(() => confettiEmoji("🎉"), i * 125);
+  for (let i = 0; i < 24; i++)
+    setTimeout(() => confettiEmoji("✨"), i * 25 + 200);
+});
+function confettiEmoji(e) {
+  const s = document.createElement("div");
+  s.textContent = e;
+  s.style.position = "fixed";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = "-2vh";
+  s.style.fontSize = 14 + Math.random() * 16 + "px";
+  s.style.zIndex = "70";
+  s.style.transition = "transform 1.2s ease, opacity 1.2s ease";
+  document.body.appendChild(s);
+  requestAnimationFrame(() => {
+    s.style.transform = `translateY(${100 + Math.random() * 70}vh) rotate(${Math.random() * 360}deg)`;
+    s.style.opacity = "0";
+  });
+  setTimeout(() => s.remove(), 1300);
+}
+
+// Email copy to clipboard
+document.getElementById("email-btn")?.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText("abhisheksahoo15073@gmail.com");
+    document.getElementById("email-status")?.classList.remove("hidden");
+    setTimeout(
+      () => document.getElementById("email-status")?.classList.add("hidden"),
+      1800
+    );
+  } catch (e) {
+    alert("Copy failed, email: abhisheksahoo15073@gmail.com");
+  }
+});
+
+/* ===== Models data ===== */
+const models = [
+  {
+    title: "Spam Shield AI - NLP",
+    keywords: ["nlp", "spam", "shield", "text"],
+    category: "nlp",
+    link: "https://spamshieldai.in",
+    img: "/static/images/project/spamshield.png",
+    desc: "Classify spam vs ham with NLP pipeline.",
+  },
+  {
+    title: "AI Resume Builder - HIREFIREAI",
+    keywords: ["resume", "job", "hirefireai", "builder"],
+    category: "ml",
+    link: "https://hirefireai.cloud",
+    img: "/static/images/project/hirefireai.jpg",
+    desc: "Generate tailored resumes powered by AI prompts.",
+  },
+  {
+    title: "ML - Student Marks Prediction",
+    keywords: ["student", "marks", "ml", "prediction"],
+    category: "ml",
+    link: "https://student-marks-prediction-ml-model-czutaxvjvugg3kaedvyuot.streamlit.app/",
+    img: "https://dummyimage.com/1200x630/0f172a/e2e8f0&text=Student+Marks+Prediction",
+    desc: "Predict student marks using regression and EDA.",
+  },
+];
+
+const searchInput = document.getElementById("search-input");
+const modelList = document.getElementById("model-list");
+const filterBtns = document.querySelectorAll(".filter-btn");
+let activeCategory = "all";
+
+function filterModels(query) {
+  const q = (query || "").toLowerCase();
+  return models.filter((model) => {
+    const matchCategory =
+      activeCategory === "all" || model.category === activeCategory;
+    const matchSearch =
+      !q ||
+      model.keywords.some((k) => k.toLowerCase().includes(q)) ||
+      model.title.toLowerCase().includes(q);
+    return matchCategory && matchSearch;
+  });
+}
+
+function chip(text) {
+  const s = document.createElement("span");
+  s.className =
+    "px-2 py-0.5 text-xs rounded-full border border-white/10 text-gray-300";
+  s.textContent = text;
+  return s;
+}
+
+// open modal for project preview
+function openModal(model) {
+  const modal = document.getElementById("project-modal");
+  modal.querySelector("#project-title").textContent = model.title;
+  modal.querySelector("#project-desc").textContent = model.desc || "";
+  modal.querySelector("#project-img").src = model.img || "";
+  modal.querySelector("#project-open").href = model.link;
+  const tags = modal.querySelector("#project-tags");
+  tags.innerHTML = "";
+  (model.keywords || []).forEach((t) => {
+    const s = chip(t);
+    s.classList.add("bg-white/5");
+    tags.appendChild(s);
+  });
+  modal.classList.add("open");
+}
+
+function renderResults(items) {
+  modelList.innerHTML = "";
+  if (!items.length) {
+    modelList.innerHTML = `<p class='text-red-400'>No matching models found.</p>`;
+    return;
+  }
+  items.forEach((model) => {
+    const card = document.createElement("div");
+    card.className =
+      "bg-gray-900/60 glass border border-white/10 rounded-2xl p-5 card-hover transition group flex flex-col";
+    card.innerHTML = `
+      <div class="flex items-start justify-between gap-3">
+        <h4 class="text-lg font-semibold group-hover:text-fuchsia-300">${
+          model.title
+        }</h4>
+        <span class="px-2 py-1 text-[11px] rounded-md bg-fuchsia-600/20 border border-fuchsia-600/30 text-fuchsia-200 uppercase">${
+          model.category
+        }</span>
+      </div>
+      <p class="mt-2 text-sm text-gray-300">${model.desc || ""}</p>
+      <img src="${model.img}" alt="${
+      model.title
+    }" class="mt-3 rounded-lg border border-white/10">
+      <div class="mt-3 flex flex-wrap gap-2" data-keywords></div>
+      <div class="mt-4 flex items-center gap-2">
+        <a class="px-3 py-2 rounded-lg bg-fuchsia-600 ripple" href="${
+          model.link
+        }" target="_blank">Open</a>
+        <button class="px-3 py-2 rounded-lg bg-gray-700" data-preview>Preview</button>
+      </div>
+    `;
+    const kw = card.querySelector("[data-keywords]");
+    model.keywords.slice(0, 4).forEach((k) => kw.appendChild(chip(k)));
+    card.querySelector("[data-preview]").addEventListener("click", () =>
+      openModal(model)
+    );
+    modelList.appendChild(card);
+  });
+}
+
+searchInput?.addEventListener("input", () =>
+  renderResults(filterModels(searchInput.value))
+);
+searchInput?.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    const results = filterModels(searchInput.value);
+    if (results.length > 0) window.open(results[0].link, "_blank");
+  }
+});
+
+filterBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    filterBtns.forEach((b) =>
+      b.classList.remove("bg-pink-600", "text-white")
+    );
+    btn.classList.add("bg-pink-600", "text-white");
+    activeCategory = btn.dataset.category;
+    renderResults(filterModels(searchInput.value));
+  });
+});
+
+renderResults(models);
+
+// Close modal events
+document
+  .querySelectorAll("#project-modal [data-close]")
+  .forEach((el) =>
+    el.addEventListener("click", () =>
+      document.getElementById("project-modal").classList.remove("open")
+    )
+  );
+document
+  .getElementById("project-modal")
+  ?.addEventListener("click", (e) => {
+    if (e.target.id === "project-modal") e.currentTarget.classList.remove("open");
+  });
+
+// Year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ===== Counters animation ===== */
+const counters = document.querySelectorAll(".counter");
+const io = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) {
+        animateCounter(en.target);
+        io.unobserve(en.target);
       }
-      draw();
-    })();
-
-    /* ===== Parallax on orbs (mouse move) ===== */
-    (function parallax(){
-      const wrap = document.getElementById('orbs-wrap');
-      const orbs = wrap.querySelectorAll('.orb');
-      window.addEventListener('pointermove', (e) => {
-        const cx = innerWidth/2, cy = innerHeight/2; const dx = (e.clientX - cx)/cx; const dy = (e.clientY - cy)/cy;
-        orbs.forEach(o => { const d = parseFloat(o.dataset.depth || '0.05'); o.style.transform = `translate(${dx*20*d}px, ${dy*20*d}px)`; });
-      });
-    })();
-
-    /* ===== Elements ===== */
-
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
-    const toTop = document.getElementById('to-top');
-
-    // Mobile menu
-    menuToggle?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
-    // Back to top visibility
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) toTop.classList.remove('hidden');
-      else toTop.classList.add('hidden');
     });
-    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // Dark/Light theme (class toggle on <html>)
-    function toggleTheme() {
-      const root = document.documentElement;
-      if (root.classList.contains('dark')) {
-        root.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      } else {
-        root.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      }
-    }
-    [themeToggle, themeToggleDesktop].forEach(btn => btn?.addEventListener('click', toggleTheme));
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') document.documentElement.classList.add('dark');
-
-    // Confetti-lite on CV click
-    document.getElementById('cv-btn')?.addEventListener('click', () => {
-      for (let i=0;i<24;i++) setTimeout(() => confettiEmoji('🎉'), i*125);
-      for (let i=0;i<24;i++) setTimeout(() => confettiEmoji('✨'), i*25+200);
-    });
-    function confettiEmoji(e){
-      const s = document.createElement('div'); s.textContent=e; s.style.position='fixed'; s.style.left=Math.random()*100+'vw'; s.style.top='-2vh'; s.style.fontSize=(14+Math.random()*16)+'px'; s.style.zIndex='70'; s.style.transition='transform 1.2s ease, opacity 1.2s ease'; document.body.appendChild(s);
-      requestAnimationFrame(()=>{ s.style.transform=`translateY(${100+Math.random()*70}vh) rotate(${Math.random()*360}deg)`; s.style.opacity='0'; }); setTimeout(()=>s.remove(),1300);
-    }
-
-    // Email copy to clipboard
-    document.getElementById('email-btn')?.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText('abhisheksahoo15073@gmail.com');
-        document.getElementById('email-status').classList.remove('hidden');
-        setTimeout(()=> document.getElementById('email-status').classList.add('hidden'), 1800);
-      } catch(e){ alert('Copy failed, email: abhisheksahoo15073@gmail.com'); }
-    });
-
-    /* ===== Models data (kept + extended) ===== */
-    const models = [
-      { title: "Spam Shield AI - NLP", keywords: ["nlp","spam","shield","text"], category: "nlp", link: "https://spamshieldai.in", img: "/static/images/project/spamshield.png", desc: "Classify spam vs ham with NLP pipeline." },
-            { title: "AI Resume Builder - HIREFIREAI", keywords: ["resume","job","hirefireai","builder"], category: "ml", link: "https://hirefireai.cloud", img: "/static/images/project/hirefireai.jpg", desc: "Generate tailored resumes powered by AI prompts." },
-      { title: "ML - Student Marks Prediction", keywords: ["student","marks","ml","prediction"], category: "ml", link: "https://student-marks-prediction-ml-model-czutaxvjvugg3kaedvyuot.streamlit.app/", img: "https://dummyimage.com/1200x630/0f172a/e2e8f0&text=Student+Marks+Prediction", desc: "Predict student marks using regression and EDA." },
-
-      
-      // { title: "Image Classifier - Computer Vision", keywords: ["cv","vision","image","classifier"], category: "cv", link: "https://example.com" }
-    ];
-
-    const searchInput = document.getElementById('search-input');
-    const modelList = document.getElementById('model-list');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    let activeCategory = 'all';
-
-    function filterModels(query) {
-      const q = (query || '').toLowerCase();
-      return models.filter(model => {
-        const matchCategory = (activeCategory === 'all' || model.category === activeCategory);
-        const matchSearch = (!q || model.keywords.some(k => k.toLowerCase().includes(q)) || model.title.toLowerCase().includes(q));
-        return matchCategory && matchSearch;
-      });
-    }
-
-    function chip(text){
-      const s = document.createElement('span');
-      s.className = 'px-2 py-0.5 text-xs rounded-full border border-white/10 text-gray-300';
-      s.textContent = text;
-      return s;
-    }
-
-    // open modal for project preview
-    function openModal(model){
-      const modal = document.getElementById('project-modal');
-      modal.querySelector('#project-title').textContent = model.title;
-      modal.querySelector('#project-desc').textContent = model.desc || '';
-      modal.querySelector('#project-img').src = model.img || '';
-      modal.querySelector('#project-open').href = model.link;
-      const tags = modal.querySelector('#project-tags'); tags.innerHTML='';
-      (model.keywords||[]).forEach(t=>{ const s=chip(t); s.classList.add('bg-white/5'); tags.appendChild(s); });
-      modal.classList.add('open');
-    }
-
-    function renderResults(items) {
-      modelList.innerHTML = '';
-      if (!items.length) { modelList.innerHTML = `<p class='text-red-400'>No matching models found.</p>`; return; }
-      items.forEach(model => {
-        const card = document.createElement('div');
-        card.className = 'bg-gray-900/60 glass border border-white/10 rounded-2xl p-5 card-hover transition group flex flex-col';
-        card.innerHTML = `
-          <div class="flex items-start justify-between gap-3">
-            <h4 class="text-lg font-semibold group-hover:text-fuchsia-300">${model.title}</h4>
-            <span class="px-2 py-1 text-[11px] rounded-md bg-fuchsia-600/20 border border-fuchsia-600/30 text-fuchsia-200 uppercase">${model.category}</span>
-          </div>
-          <p class="mt-2 text-sm text-gray-300">${model.desc || ''}</p>
-          <img src="${model.img}" alt="${model.title}" class="mt-3 rounded-lg border border-white/10">
-          <div class="mt-3 flex flex-wrap gap-2" data-keywords></div>
-          <div class="mt-4 flex items-center gap-2">
-            <a class="px-3 py-2 rounded-lg bg-fuchsia-600 ripple" href="${model.link}" target="_blank">Open</a>
-            <button class="px-3 py-2 rounded-lg bg-gray-700" data-preview>Preview</button>
-          </div>
-        `;
-        const kw = card.querySelector('[data-keywords]');
-        model.keywords.slice(0,4).forEach(k => kw.appendChild(chip(k)));
-        card.querySelector('[data-preview]').addEventListener('click', ()=>openModal(model));
-        modelList.appendChild(card);
-      });
-    }
-
-    searchInput.addEventListener('input', () => renderResults(filterModels(searchInput.value)));
-    searchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        const results = filterModels(searchInput.value);
-        if (results.length > 0) window.open(results[0].link, '_blank');
-      }
-    });
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('bg-pink-600','text-white'));
-        btn.classList.add('bg-pink-600','text-white');
-        activeCategory = btn.dataset.category;
-        renderResults(filterModels(searchInput.value));
-      });
-    });
-
-    renderResults(models);
-
-    // Close modal events
-    document.querySelectorAll('#project-modal [data-close]').forEach(el => el.addEventListener('click', () => document.getElementById('project-modal').classList.remove('open')));
-    document.getElementById('project-modal').addEventListener('click', (e)=>{ if(e.target.id==='project-modal') e.currentTarget.classList.remove('open'); });
-
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    /* ===== Counters animation ===== */
-    const counters = document.querySelectorAll('.counter');
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(en=>{
-        if(en.isIntersecting){ animateCounter(en.target); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.9 });
-    counters.forEach(c=> io.observe(c));
-    function animateCounter(el){
-      const target = +el.dataset.target || 0; let cur = 0; const step = Math.max(100, Math.round(target/60));
-      const tick = () => { cur += step; if (cur >= target) { el.textContent = target; } else { el.textContent = cur; requestAnimationFrame(tick); } };
+  },
+  { threshold: 0.9 }
+);
+counters.forEach((c) => io.observe(c));
+function animateCounter(el) {
+  const target = +el.dataset.target || 0;
+  let cur = 0;
+  const step = Math.max(100, Math.round(target / 60));
+  const tick = () => {
+    cur += step;
+    if (cur >= target) {
+      el.textContent = target;
+    } else {
+      el.textContent = cur;
       requestAnimationFrame(tick);
     }
-  </script>
+  };
+  requestAnimationFrame(tick);
+}
 
-  <script>
-  const menuToggle = document.getElementById("menu-toggle");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const hamburgerIcon = document.getElementById("hamburger-icon");
-  const closeIcon = document.getElementById("close-icon");
+/* ===== Welcome screen fade ===== */
+// Welcome screen fade animation - show only once
+document.addEventListener("DOMContentLoaded", () => {
+  const welcomeScreen = document.getElementById("welcome-screen");
+  const welcomeText = document.getElementById("welcome-text");
 
-  menuToggle.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
-    hamburgerIcon.classList.toggle("hidden");
-    closeIcon.classList.toggle("hidden");
-  });
+  // Check if user already saw welcome
+  if (!sessionStorage.getItem("welcomeShown")) {
+    // Show animation
+    welcomeScreen.style.display = "flex";
+    setTimeout(() => {
+      welcomeText.style.opacity = "1";
+      welcomeText.style.transform = "translateY(0)";
+    }, 500);
+
+    // Hide after animation
+    setTimeout(() => {
+      welcomeScreen.style.opacity = "0";
+      setTimeout(() => {
+        welcomeScreen.style.display = "none";
+        // Mark as seen
+        sessionStorage.setItem("welcomeShown", "true");
+
+      }, 1000);
+    }, 3000);
+  } else {
+    // Skip welcome if already shown
+    if (welcomeScreen) {
+      welcomeScreen.style.display = "none";
+    }
+  }
+});
+
+
 </script>
 
-  <script>
-    // Show welcome screen for 3 seconds, then fade out
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        const welcome = document.getElementById("welcome-screen");
-        welcome.style.opacity = "0";
 
-        setTimeout(() => {
-          welcome.style.display = "none";
-          document.getElementById("main-content").style.display = "block";
-          document.body.style.overflow = "auto"; // re-enable scroll
-        }, 1000); // wait for fade-out
-      }, 3000); // show welcome for 3s
-    });
-  </script>
 </body>
 </html>
