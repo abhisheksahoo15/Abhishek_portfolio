@@ -15,6 +15,49 @@
        (Nothing removed from your base; only enhancements added.)
        ========================================================== -->
   <style>
+
+    
+    /* Welcome Screen */
+    #welcome-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(270deg, #0f172a, #1e40af, #6d28d9, #c405e6);
+background-size: 800% 800%;
+animation: gradientBG 12s ease infinite;
+
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1000;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #welcome-screen h1 {
+      font-size: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 2s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
     :root {
       /* brand neon palette */
       /* --neon-pink: #ff8ef9;
@@ -114,6 +157,11 @@
 
   <!-- Skip link for a11y -->
   <a href="#hero" class="sr-only focus:not-sr-only focus-ring fixed top-2 left-2 z-50 bg-black/70 px-3 py-1 rounded-md">Skip to content</a>
+  <!-- Welcome Animation Screen -->
+  <div id="welcome-screen">
+    <h1>Welcome to Abhishek Portfolio</h1>
+  </div>
+
 
   <!-- Navbar -->
   <nav class="fixed top-0 w-full z-50 transition-all">
@@ -414,8 +462,7 @@ window.addEventListener('load', () => {
     })();
 
     /* ===== Elements ===== */
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
+
     const themeToggle = document.getElementById('theme-toggle');
     const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
     const toTop = document.getElementById('to-top');
@@ -572,6 +619,35 @@ window.addEventListener('load', () => {
       const tick = () => { cur += step; if (cur >= target) { el.textContent = target; } else { el.textContent = cur; requestAnimationFrame(tick); } };
       requestAnimationFrame(tick);
     }
+  </script>
+
+  <script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const hamburgerIcon = document.getElementById("hamburger-icon");
+  const closeIcon = document.getElementById("close-icon");
+
+  menuToggle.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+    hamburgerIcon.classList.toggle("hidden");
+    closeIcon.classList.toggle("hidden");
+  });
+</script>
+
+  <script>
+    // Show welcome screen for 3 seconds, then fade out
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const welcome = document.getElementById("welcome-screen");
+        welcome.style.opacity = "0";
+
+        setTimeout(() => {
+          welcome.style.display = "none";
+          document.getElementById("main-content").style.display = "block";
+          document.body.style.overflow = "auto"; // re-enable scroll
+        }, 1000); // wait for fade-out
+      }, 3000); // show welcome for 3s
+    });
   </script>
 </body>
 </html>
